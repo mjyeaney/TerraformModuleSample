@@ -1,6 +1,6 @@
 
 resource "azurerm_public_ip" "example" {
-  name                = var.pip_name
+  name                = "${var.bastion_name}_pip"
   location            = var.location
   resource_group_name = var.resource_group_name
   allocation_method   = "Static"
@@ -13,7 +13,7 @@ resource "azurerm_bastion_host" "example" {
   resource_group_name = var.resource_group_name
 
   ip_configuration {
-    name                 = "default_ip_configuration"
+    name                 = "${var.bastion_name}_ipconfig"
     subnet_id            = var.subnet_id
     public_ip_address_id = azurerm_public_ip.example.id
   }

@@ -6,10 +6,6 @@ variable "resource_group_name" {
     description = "Resource group for the Bastion service"
 }
 
-variable "pip_name" {
-    description = "Name of the Bastion service public IP"
-}
-
 variable "bastion_name" {
     description = "Name of the Bastion service"
 }

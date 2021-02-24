@@ -12,7 +12,7 @@ module "base_networking" {
   source                           = "./Networking"
   environment                      = var.environment
   location                         = var.location
-  vnet_name                        = "test_vnet"
+  vnet_name                        = var.vnet_name
   resource_group_name = azurerm_resource_group.rg.name
 
   providers = {
@@ -26,8 +26,7 @@ module "bastion_service" {
   source                      = "./Bastion"
   location                    = var.location
   resource_group_name         = azurerm_resource_group.rg.name
-  pip_name                    = "bastion_pip_01"
-  bastion_name                = "bastion_01"
+  bastion_name                = var.bastion_name
   subnet_id                   = module.base_networking.vnet_bastionsubnet_id
 
   providers = {
