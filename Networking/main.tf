@@ -38,7 +38,7 @@ resource "azurerm_subnet" "bastion" {
   address_prefixes     = ["10.0.4.0/24"]
 }
 
-resource "azurerm_network_security_group" "nsg_group" {
+resource "azurerm_network_security_group" "bastion_nsg_group" {
   name                = "acceptanceTestSecurityGroup1"
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -55,5 +55,10 @@ resource "azurerm_network_security_rule" "rdp_access" {
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
   resource_group_name         = var.resource_group_name
-  network_security_group_name = azurerm_network_security_group.nsg_group.name
+  network_security_group_name = azurerm_network_security_group.bastion_nsg_group.name
+}
+
+resource "azurerm_subnet_network_security_group_association" "rdp_nsg_assoc" {
+  subnet_id                 = azurerm_subnet.bastion.id
+  network_security_group_id = azurerm_network_security_group.bastion_nsg_group.id
 }
