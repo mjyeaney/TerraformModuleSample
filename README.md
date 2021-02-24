@@ -11,3 +11,7 @@ A diagram of this deployment is shown below:
 ![Deployment Diagram](docs/deployment.png)
 
 Note this only is a demonstration of one possible way to decompose these deployment steps, but is being used to demonstrate leveraging Terraform modules to organize infrastructure code. 
+
+### Known Issues
+
+There is currently an error resulting from incorrect NSG rules being applied to the Bastion subnet. This will be fixed in upcoming iterations.
