@@ -37,3 +37,23 @@ resource "azurerm_subnet" "bastion" {
   virtual_network_name = azurerm_virtual_network.vnet01.name
   address_prefixes     = ["10.0.4.0/24"]
 }
+
+resource "azurerm_network_security_group" "nsg_group" {
+  name                = "acceptanceTestSecurityGroup1"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+}
+
+resource "azurerm_network_security_rule" "rdp_access" {
+  name                        = "rdp_access"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "3389"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.nsg_group.name
+}
