@@ -9,17 +9,11 @@ resource "azurerm_resource_group" "rg" {
 }
 
 module "base_networking" {
-  source                           = "./Networking"
-  environment                      = var.environment
-  location                         = var.location
-  vnet_name                        = var.vnet_name
-  resource_group_name = azurerm_resource_group.rg.name
-
-  providers = {
-    azurerm : azurerm
-  }
-
-  depends_on = [azurerm_resource_group.rg]
+  source                      = "./Networking"
+  environment                 = var.environment
+  location                    = var.location
+  vnet_name                   = var.vnet_name
+  resource_group_name         = azurerm_resource_group.rg.name
 }
 
 module "bastion_service" {
@@ -28,12 +22,6 @@ module "bastion_service" {
   resource_group_name         = azurerm_resource_group.rg.name
   bastion_name                = var.bastion_name
   subnet_id                   = module.base_networking.vnet_bastionsubnet_id
-
-  providers = {
-    azurerm : azurerm
-  }
-
-  depends_on = [azurerm_resource_group.rg]
 }
 
 module "web_server" {
@@ -42,10 +30,4 @@ module "web_server" {
   resource_group_name         = azurerm_resource_group.rg.name
   environment                 = var.environment
   subnet_id                   = module.base_networking.vnet_subnet1_id
-
-  providers = {
-    azurerm : azurerm
-  }
-
-  depends_on = [azurerm_resource_group.rg]
 }
