@@ -8,6 +8,6 @@ This repo shows a basic sample of leveraging modules to organize Terraform code;
 
 A diagram of this deployment is shown below:
 
-
+![Deployment Diagram](docs/deployment.png)
 
 Note this only is a demonstration of one possible way to decompose these deployment steps, but is being used to demonstrate leveraging Terraform modules to organize infrastructure code. 
